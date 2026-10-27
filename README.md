@@ -10,13 +10,33 @@ runs on Windows with the SDK's Direct3D 12 renderer, XAudio2 audio and SDL3 inpu
 
 ## Status
 
-- Boots, plays the intro movies, menus and the first level (tutorial) with a gamepad.
+- Boots, plays the intro movies, menus and the first level (tutorial) with a gamepad or keyboard and mouse.
 - Audio works: music, dialogue, cutscene audio stopping on skip, punches and footsteps.
-- Not done: keyboard and mouse controls, some menu objects render partly black, only the start of the game has
+- Not done: some menu objects render partly black, only the start of the game has
   been played.
 
 Tested with the USA disc (`default.xbe` SHA-1 `fe246a74501cd10d2ce89ca5dbda5080d2b2edcc`, title id `5454009B`,
 XDK 5849).
+
+## Controls
+
+A gamepad works as is. The keyboard and mouse act as controller 1 while the game window has the focus
+(`src\common\keyboard_mouse.cpp`), and add to a real pad if one is plugged in:
+
+| Controller | Keyboard / mouse |
+|---|---|
+| Left stick | W A S D |
+| Right stick (camera) | mouse movement |
+| D-pad | arrow keys |
+| A | Space or Enter |
+| B | E |
+| X | left mouse button or J |
+| Y | right mouse button or F |
+| Black / White | R / C |
+| Left / right trigger | Shift / Ctrl or X |
+| Start | Esc |
+| Back | Backspace or Tab |
+| Left / right stick click | Q / middle mouse button |
 
 ## Build
 
