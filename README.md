@@ -25,7 +25,7 @@ Requirements: Windows 10/11 64-bit, Visual Studio 2022 (or Build Tools) with "De
 
 1. Clone with the SDK submodule:
    ```
-   git clone --recursive https://github.com/<you>/<this repository>.git
+   git clone --recursive https://github.com/yudhakstyd/warriors-xberecomp.git
    ```
 2. Put `default.xbe` from your disc in `xbe\`, and your disc image (`.iso`, game partition or full dump) in `assets\`.
    `default.xbe` must **not** be in `assets\` when you play: the runtime would then run without mounting the disc.
