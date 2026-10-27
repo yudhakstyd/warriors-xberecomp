@@ -14,6 +14,9 @@ namespace {
 std::atomic<HWND> g_window{nullptr};
 POINT g_last{};
 bool g_have_last = false;
+std::atomic<bool> g_split{false};
+bool g_f9_was_down = false;
+thread_local bool g_nested = false;
 
 bool Down(int vk) { return (GetAsyncKeyState(vk) & 0x8000) != 0; }
 
@@ -39,8 +42,27 @@ bool Message(void* hwnd, uint32_t msg, uintptr_t, intptr_t lp, intptr_t* result)
 }
 
 void Pad(int port, input::Pad& pad) {
+    if (g_nested) return;  // the read below for the pad one port down
     HWND hwnd = g_window.load();
-    if (port != 0 || !hwnd || GetForegroundWindow() != hwnd) {
+    const bool focus = hwnd && GetForegroundWindow() == hwnd;
+
+    // F9 flips the two-player test: the keyboard and mouse stay player 1 and the real controllers move up a port
+    if (port == 0 && focus) {
+        const bool f9 = Down(VK_F9);
+        if (f9 && !g_f9_was_down) g_split = !g_split;
+        g_f9_was_down = f9;
+    }
+    if (g_split) {
+        if (port > 0 && port < 4) {
+            g_nested = true;
+            pad = input::Poll(port - 1);
+            g_nested = false;
+            return;
+        }
+        if (port == 0) pad = input::Pad{};
+    }
+
+    if (port != 0 || !focus) {
         g_have_last = false;
         return;
     }

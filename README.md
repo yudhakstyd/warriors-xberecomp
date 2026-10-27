@@ -38,6 +38,9 @@ A gamepad works as is. The keyboard and mouse act as controller 1 while the game
 | Back | Backspace or Tab |
 | Left / right stick click | Q / middle mouse button |
 
+F9 turns on a two-player test: the keyboard and mouse stay player 1 and the first gamepad becomes player 2. F9 again
+turns it off.
+
 ## Build
 
 Requirements: Windows 10/11 64-bit, Visual Studio 2022 (or Build Tools) with "Desktop development with C++",
